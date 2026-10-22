@@ -75,6 +75,9 @@ html {
   scroll-behavior: smooth;
   font-size: 16px;
   -webkit-text-size-adjust: 100%;
+  width: 100%;
+  max-width: 100%;
+  overflow-x: hidden;
 }
 
 body {
@@ -82,7 +85,10 @@ body {
   color: var(--slate-700);
   background-color: var(--white);
   line-height: 1.6;
+  width: 100%;
+  max-width: 100%;
   overflow-x: hidden;
+  position: relative;
 }
 
 img {
@@ -114,8 +120,11 @@ button {
 .container {
   width: 100%;
   max-width: 1240px;
-  margin: 0 auto;
-  padding: 0 24px;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: clamp(16px, 4vw, 24px);
+  padding-right: clamp(16px, 4vw, 24px);
+  box-sizing: border-box;
 }
 
 /* 3. Ícones Utilitários */
@@ -437,6 +446,10 @@ h1, h2, h3, h4, h5 {
   height: 2.5px;
   background: var(--primary);
   border-radius: 2px;
+}
+
+.nav-mobile-actions {
+  display: none;
 }
 
 .header-actions {
@@ -1820,26 +1833,107 @@ h1, h2, h3, h4, h5 {
   }
 
   .container {
-    padding: 0 18px;
+    padding-left: clamp(14px, 4vw, 18px);
+    padding-right: clamp(14px, 4vw, 18px);
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn {
+    white-space: normal;
+    text-align: center;
+    max-width: 100%;
+    box-sizing: border-box;
+  }
+
+  .btn-lg, .btn-xl {
+    padding: 13px 18px;
+    font-size: 0.95rem;
   }
 
   .header-container {
-    height: 66px;
+    height: 64px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
   }
 
+  .brand-logo {
+    min-width: 0;
+    max-width: calc(100% - 56px);
+    gap: 8px;
+  }
+
+  .logo-icon-wrap {
+    width: 38px;
+    height: 38px;
+    min-width: 38px;
+    border-radius: 10px;
+  }
+
+  .logo-icon-wrap svg {
+    width: 20px;
+    height: 20px;
+  }
+
+  .logo-text-wrap {
+    min-width: 0;
+    overflow: hidden;
+  }
+
+  .logo-title {
+    font-size: clamp(1.1rem, 4.5vw, 1.25rem);
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    line-height: 1.1;
+  }
+
+  .logo-subtitle {
+    font-size: 0.625rem;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  .header-actions {
+    gap: 0;
+    flex-shrink: 0;
+  }
+
+  /* Oculta botões do cabeçalho mobile para evitar estouro horizontal */
+  .header-actions #headerCtaBtn,
+  .header-actions .btn-phone {
+    display: none !important;
+  }
+
+  .mobile-toggle {
+    display: flex;
+    min-width: 42px;
+    min-height: 42px;
+    width: 42px;
+    height: 42px;
+    padding: 8px;
+    flex-shrink: 0;
+  }
+
+  /* Menu Drawer Mobile */
   .nav-menu {
     position: fixed;
-    top: 66px;
+    top: 64px;
     left: 0;
     right: 0;
+    width: 100%;
     background: var(--white);
-    padding: 24px 20px;
+    padding: 20px 18px 26px 18px;
     border-bottom: 2px solid var(--slate-200);
-    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.15);
+    box-shadow: 0 20px 40px -10px rgba(0, 0, 0, 0.16);
     display: none;
     z-index: 890;
-    max-height: calc(100vh - 66px);
+    max-height: calc(100vh - 64px);
     overflow-y: auto;
+    box-sizing: border-box;
   }
 
   .nav-menu.active {
@@ -1855,7 +1949,7 @@ h1, h2, h3, h4, h5 {
   .nav-list {
     flex-direction: column;
     align-items: stretch;
-    gap: 10px;
+    gap: 6px;
   }
 
   .nav-link {
@@ -1863,8 +1957,10 @@ h1, h2, h3, h4, h5 {
     align-items: center;
     padding: 12px 14px;
     font-size: 1.05rem;
+    font-weight: 600;
     border-radius: var(--radius-sm);
-    min-height: 48px;
+    min-height: 46px;
+    color: var(--navy-900);
   }
 
   .nav-link:hover, .nav-link.active {
@@ -1875,114 +1971,353 @@ h1, h2, h3, h4, h5 {
     display: none;
   }
 
-  .btn-phone {
-    display: none;
-  }
-
-  .mobile-toggle {
+  .nav-mobile-actions {
     display: flex;
-    min-width: 44px;
-    min-height: 44px;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 16px;
+    padding-top: 16px;
+    border-top: 1px solid var(--slate-200);
   }
 
+  .nav-mobile-actions .btn {
+    width: 100%;
+    justify-content: center;
+    font-size: 0.95rem;
+    min-height: 48px;
+  }
+
+  .btn-phone-mobile {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    width: 100%;
+    padding: 12px 16px;
+    border-radius: var(--radius-full);
+    border: 1.5px solid var(--slate-300);
+    background: var(--white);
+    color: var(--slate-800);
+    font-weight: 600;
+    font-size: 0.9rem;
+    min-height: 46px;
+    transition: all var(--transition-fast);
+  }
+
+  .btn-phone-mobile:hover {
+    background: var(--slate-50);
+    border-color: var(--slate-400);
+  }
+
+  /* Hero Section Mobile */
   .hero-section {
-    padding: 40px 0 60px 0;
+    padding: 30px 0 45px 0;
+    overflow: hidden;
+    width: 100%;
+    max-width: 100vw;
+  }
+
+  .hero-container {
+    grid-template-columns: 1fr;
+    text-align: center;
+    gap: 30px;
+    width: 100%;
+  }
+
+  .hero-eyebrow {
+    font-size: 0.75rem;
+    padding: 5px 14px;
+    margin: 0 auto 14px auto;
   }
 
   .hero-title {
-    font-size: clamp(2rem, 7vw, 2.75rem);
+    font-size: clamp(1.85rem, 6.8vw, 2.45rem);
+    line-height: 1.15;
+    margin-bottom: 16px;
   }
 
+  .hero-description {
+    font-size: 0.975rem;
+    line-height: 1.55;
+    margin: 0 auto 22px auto;
+    max-width: 100%;
+  }
+
+  .hero-cta-group {
+    flex-direction: column;
+    width: 100%;
+    gap: 10px;
+    margin: 0 auto 26px auto;
+  }
+
+  .hero-cta-group .btn {
+    width: 100%;
+    justify-content: center;
+    min-height: 50px;
+  }
+
+  .hero-social-proof {
+    flex-direction: column;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+    padding-top: 14px;
+    margin: 0 auto;
+    width: 100%;
+  }
+
+  /* Hero Visual & Imagem */
   .hero-visual {
     width: 100%;
-    overflow: visible;
+    max-width: 100%;
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
   }
 
   .painter-image-wrapper {
+    width: 100%;
+    max-width: 380px;
+    margin: 0 auto;
+    position: relative;
+  }
+
+  .painter-main-img {
+    width: 100%;
+    height: auto;
+    border-radius: var(--radius-lg);
+  }
+
+  .paint-splash-svg-bg {
+    width: 100%;
     max-width: 100%;
+    left: 0;
+    right: 0;
+    margin: 0 auto;
+    animation: none;
+    transform: none;
+    pointer-events: none;
+  }
+
+  /* Badges reorganizados para mobile 100% contidos */
+  .floating-badge {
+    position: static !important;
+    inset: auto !important;
+    animation: none !important;
+    transform: none !important;
+    width: 100%;
+    max-width: 380px;
+    margin-left: auto;
+    margin-right: auto;
+    box-shadow: var(--shadow-sm);
+    box-sizing: border-box;
+    padding: 12px 16px;
+  }
+
+  .badge-exp {
+    margin-top: 14px;
+  }
+
+  .badge-guarantee {
+    margin-top: 10px;
+  }
+
+  /* Barra de Valores / Pilares */
+  .value-bar-section {
+    padding: 20px 0 40px 0;
+    width: 100%;
   }
 
   .value-cards-grid {
     grid-template-columns: 1fr;
-    padding: 24px 18px;
+    padding: 20px 16px;
     gap: 16px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
+    margin: 0 auto;
   }
 
+  .value-card {
+    width: 100%;
+    box-sizing: border-box;
+    gap: 14px;
+  }
+
+  .value-icon-circle {
+    width: 44px;
+    height: 44px;
+    min-width: 44px;
+    border-radius: 12px;
+  }
+
+  .value-text h3 {
+    font-size: 1rem;
+    margin-bottom: 2px;
+  }
+
+  .value-text p {
+    font-size: 0.85rem;
+    line-height: 1.4;
+  }
+
+  /* Seção de Serviços */
   .services-section {
-    padding: 60px 0;
+    padding: 50px 0;
+    width: 100%;
   }
 
   .services-grid {
     grid-template-columns: 1fr;
     gap: 20px;
-    margin-top: 32px;
+    margin-top: 28px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .service-card {
+    width: 100%;
     max-width: 100%;
+    box-sizing: border-box;
   }
 
   .service-img-wrap {
-    height: 220px;
+    height: 200px;
   }
 
+  .service-card-body {
+    padding: 20px 18px;
+  }
+
+  /* Estatísticas */
   .stats-counter-section {
-    padding: 45px 0;
+    padding: 40px 0;
+    width: 100%;
   }
 
   .stats-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 24px 14px;
+    gap: 20px 12px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .stat-value {
-    font-size: 2.2rem;
+    font-size: 1.85rem;
   }
 
+  .stat-label {
+    font-size: 0.8125rem;
+  }
+
+  /* Diferenciais / Por que nos escolher */
   .why-us-section {
-    padding: 60px 0;
+    padding: 50px 0;
+    width: 100%;
+  }
+
+  .why-us-wrapper {
+    grid-template-columns: 1fr;
+    gap: 34px;
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .why-us-text-col, .why-us-visual-col {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  .benefits-checklist {
+    width: 100%;
+  }
+
+  .benefit-item {
+    width: 100%;
+    box-sizing: border-box;
+    gap: 14px;
+  }
+
+  .benefit-content {
+    min-width: 0;
+  }
+
+  .why-us-cta {
+    margin-top: 24px;
+  }
+
+  .why-us-cta .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .why-us-card-showcase {
+    width: 100%;
+    max-width: 100%;
   }
 
   .why-us-img {
-    aspect-ratio: 16/11;
+    aspect-ratio: 16/10;
+    width: 100%;
   }
 
-  .gallery-section {
-    padding: 60px 0;
+  .floating-promo-card {
+    position: static;
+    margin-top: 14px;
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
-  .gallery-grid {
-    grid-template-columns: 1fr;
-    gap: 20px;
-    margin-top: 32px;
+  /* Galeria, Depoimentos, FAQ */
+  .gallery-section,
+  .testimonials-section,
+  .faq-section {
+    padding: 50px 0;
+    width: 100%;
   }
 
-  .testimonials-section {
-    padding: 60px 0;
-  }
-
+  .gallery-grid,
   .testimonials-grid {
     grid-template-columns: 1fr;
     gap: 20px;
-    margin-top: 32px;
+    margin-top: 28px;
+    width: 100%;
+    box-sizing: border-box;
   }
 
-  .faq-section {
-    padding: 60px 0;
+  .gallery-card,
+  .testimonial-card {
+    width: 100%;
+    max-width: 100%;
+    box-sizing: border-box;
   }
 
+  .faq-accordion {
+    width: 100%;
+    box-sizing: border-box;
+  }
+
+  /* CTA Final */
   .final-cta-section {
-    padding: 60px 0 80px 0;
+    padding: 50px 0 70px 0;
+    width: 100%;
   }
 
   .final-cta-box {
-    padding: 36px 18px;
+    padding: 32px 18px;
     border-radius: var(--radius-lg);
+    width: 100%;
+    box-sizing: border-box;
   }
 
   .final-cta-desc {
-    font-size: 1rem;
-    margin-bottom: 24px;
+    font-size: 0.95rem;
+    margin-bottom: 22px;
   }
 
   .final-cta-buttons {
@@ -2002,128 +2337,64 @@ h1, h2, h3, h4, h5 {
     font-size: 0.8125rem;
   }
 
+  /* Rodapé */
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 32px;
+    gap: 28px;
+    width: 100%;
   }
 
   .footer-bottom-row {
     flex-direction: column;
     text-align: center;
-    gap: 16px;
+    gap: 14px;
+    width: 100%;
   }
 
+  /* Botão Flutuante WhatsApp */
   .fab-tooltip {
-    display: none;
+    display: none !important;
   }
 
   .floating-whatsapp-wrap {
-    bottom: calc(18px + env(safe-area-inset-bottom, 0px));
-    right: 18px;
+    bottom: calc(16px + env(safe-area-inset-bottom, 0px));
+    right: 16px;
+    z-index: 999;
   }
 
   .fab-whatsapp {
-    width: 56px;
-    height: 56px;
+    width: 54px;
+    height: 54px;
   }
 
   .fab-whatsapp svg {
-    width: 30px;
-    height: 30px;
+    width: 28px;
+    height: 28px;
   }
 
-  /* Modal no Mobile */
+  /* Modal de Triagem */
   .modal-backdrop {
     padding: 12px;
     align-items: flex-end;
   }
 
   .modal-card {
-    max-height: calc(100dvh - 30px);
+    width: 100%;
+    max-width: 440px;
+    max-height: calc(100dvh - 24px);
     overflow-y: auto;
-    padding: 24px 18px 28px 18px;
-    border-radius: 20px 20px 14px 14px;
+    padding: 22px 16px 26px 16px;
+    border-radius: 20px 20px 12px 12px;
+    margin: 0 auto;
+    box-sizing: border-box;
   }
 
-  .input-wrap input {
-    font-size: 16px; /* Evita auto-zoom no Safari iOS */
-    padding: 13px 14px;
-  }
-}
-
-@media (max-width: 540px) {
-  .container {
-    padding: 0 16px;
+  .modal-header-content h3 {
+    font-size: 1.25rem;
   }
 
-  .header-actions #headerCtaBtn {
-    padding: 8px 14px;
-    font-size: 0.8125rem;
-  }
-
-  .header-actions #headerCtaBtn svg {
-    display: none;
-  }
-
-  .hero-eyebrow {
-    font-size: 0.72rem;
-    padding: 4px 12px;
-  }
-
-  .hero-title {
-    font-size: clamp(1.8rem, 8vw, 2.3rem);
-  }
-
-  .hero-description {
-    font-size: 0.95rem;
-    margin-bottom: 24px;
-  }
-
-  .hero-cta-group {
-    flex-direction: column;
-    width: 100%;
-    gap: 10px;
-  }
-
-  .hero-cta-group .btn {
-    width: 100%;
-    justify-content: center;
-    min-height: 50px;
-  }
-
-  .hero-social-proof {
-    flex-direction: column;
-    gap: 10px;
-    padding-top: 14px;
-  }
-
-  /* Badges reorganizados para mobile sem sobreposição */
-  .floating-badge {
-    position: static !important;
-    inset: auto !important;
-    animation: none !important;
-    transform: none !important;
-    width: 100%;
-    margin-top: 10px;
-    padding: 12px 14px;
-    box-shadow: var(--shadow-sm);
-  }
-
-  .badge-exp {
-    margin-top: 14px;
-  }
-
-  .stats-grid {
-    grid-template-columns: 1fr 1fr;
-    gap: 20px 10px;
-  }
-
-  .stat-value {
-    font-size: 1.85rem;
-  }
-
-  .stat-label {
-    font-size: 0.8rem;
+  .modal-header-content p {
+    font-size: 0.85rem;
   }
 
   .service-option-chips {
@@ -2136,6 +2407,28 @@ h1, h2, h3, h4, h5 {
     text-align: left;
     padding: 11px 14px;
     font-size: 0.875rem;
+    box-sizing: border-box;
+  }
+
+  .input-wrap input {
+    font-size: 16px; /* Evita auto-zoom no Safari iOS */
+    padding: 12px 14px;
+  }
+}
+
+@media (max-width: 360px) {
+  .container {
+    padding-left: 12px;
+    padding-right: 12px;
+  }
+
+  .stats-grid {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .hero-title {
+    font-size: 1.75rem;
   }
 }
 

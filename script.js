@@ -60,6 +60,12 @@ document.addEventListener('DOMContentLoaded', () => {
       e.preventDefault();
       const service = btn.getAttribute('data-service') || 'Pintura Residencial Interna';
       openModal(service);
+      const navMenu = document.getElementById('navMenu');
+      const mobileToggle = document.getElementById('mobileToggle');
+      if (navMenu && mobileToggle) {
+        navMenu.classList.remove('active');
+        mobileToggle.classList.remove('active');
+      }
     });
   });
 
