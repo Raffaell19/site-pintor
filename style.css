@@ -2337,18 +2337,38 @@ h1, h2, h3, h4, h5 {
     font-size: 0.8125rem;
   }
 
-  /* Rodapé */
+  /* Rodapé Mobile Simplificado (Somente Identidade, Descrição e Redes Sociais) */
+  .main-footer {
+    padding: 38px 0 34px 0;
+  }
+
   .footer-grid {
     grid-template-columns: 1fr;
-    gap: 28px;
+    gap: 0;
     width: 100%;
   }
 
+  .footer-grid .footer-col:not(.brand-col) {
+    display: none !important;
+  }
+
   .footer-bottom-row {
-    flex-direction: column;
-    text-align: center;
-    gap: 14px;
-    width: 100%;
+    display: none !important;
+  }
+
+  .footer-col.brand-col {
+    max-width: 100%;
+  }
+
+  .footer-about-text {
+    max-width: 100%;
+    margin: 14px 0 20px 0;
+    font-size: 0.9rem;
+    line-height: 1.5;
+  }
+
+  .footer-social-links {
+    margin-top: 4px;
   }
 
   /* Botão Flutuante WhatsApp */
