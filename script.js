@@ -1,5 +1,5 @@
 /**
- * PintorPro - Interações da Landing Page
+ * Machado Pinturas - Interações da Landing Page
  * JavaScript Vanilla Puro, Leve e de Alta Performance
  */
 
@@ -103,10 +103,10 @@ document.addEventListener('DOMContentLoaded', () => {
     const name = clientNameInput.value.trim();
     const location = clientLocationInput.value.trim();
 
-    let message = `Olá! Gostaria de um orçamento para *${selectedService}*.`;
+    let message = `Olá Machado Pinturas! Gostaria de um orçamento para *${selectedService}*.`;
 
     if (name) {
-      message = `Olá! Meu nome é *${name}* e gostaria de um orçamento para *${selectedService}*.`;
+      message = `Olá Machado Pinturas! Meu nome é *${name}* e gostaria de um orçamento para *${selectedService}*.`;
     }
 
     if (location) {
